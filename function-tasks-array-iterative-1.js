@@ -56,12 +56,9 @@ const people = [
 ];
 console.groupCollapsed('1. Atspausdinkite visus žmones eilutėmis');
 {
-    function printPeopleList(person) {
-        console.log(`${person.name} ${person.surname} - ${person.sex} ${person.age} ${person.income} ${person.married} ${person.hasCar}`)
-    }
-
-    people.forEach(printPeopleList)
-
+    people.forEach(function({name, surname, sex, age, income, married, hasCar}) {
+        console.log(`${name} ${surname} - ${sex} ${age} ${income} ${married} ${hasCar}`)
+    })
 }
 console.groupEnd();
 
@@ -69,12 +66,11 @@ console.groupCollapsed('2. Atpausdinkite visus žmonių varus ir pavardes, atski
 {
     let namesList = '';
 
-    function printPeopleNames(person) {
-        namesList += `${person.name} - ${person.surname}, `
-    }
-    namesList = namesList.slice(0, -2)
+    people.forEach(function({name, surname}) {
+        namesList += `${name} - ${surname}, `;
+    });
 
-    people.forEach(printPeopleNames)
+    namesList = namesList.slice(0, -2)
 
     console.log(namesList);
 }
@@ -84,12 +80,11 @@ console.groupCollapsed('3. Atspausdinkite visų žmonių vardus ir pavardes bei 
 {
     let marriageStatusList = '';
 
-    function printPeopleMarriageStatus(person) {
-        marriageStatusList += `${person.name} ${person.surname}, is married: ${person.married}. `;
-    }
-    marriageStatusList = marriageStatusList.slice(0, -2);
+    people.forEach(function({name, surname, married}) {
+        marriageStatusList += `${name} ${surname}, is married: ${married}. `;
+    });
 
-    people.forEach(printPeopleMarriageStatus);
+    marriageStatusList = marriageStatusList.slice(0, -2);
 
     console.log(marriageStatusList);
 }
@@ -97,67 +92,31 @@ console.groupEnd();
 
 console.groupCollapsed('4. Sukurtite masyvą su lytimis ir uždirbamu pinigų kiekiu, pagal pradinį žmonių masyvą');
 {
-
-    let sexAndSalary = [];
-
-    function dumpSexAndSalary(person) {
-        sexAndSalary.push([person.sex, person.income]);
-    }
-
-    people.forEach(dumpSexAndSalary)
-
-    console.log(sexAndSalary)
+    console.log(people.map(function({sex, income}) { return [sex, income]; }));
 }
 console.groupEnd();
 
 console.groupCollapsed('5. Sukurtite masyvą su vardais, pavardėmis ir lytimi, pagal pradinį žmonių masyvą');
 {
-    let namesAndSex = [];
-
-    function dumpNamesAndSex(person) {
-        namesAndSex.push(person.name, person.surname, person.sex);
-    }
-
-    people.forEach(dumpNamesAndSex);
-
-    console.log(namesAndSex);
+    console.log(people.map(function({name, surname, sex}) {
+        return `${name} ${surname} ${sex}`
+    }));
 }
 console.groupEnd();
 
 console.groupCollapsed('6. Atspausdinkite visus vyrus');
 {
-    let malesList = '';
-
-    function printAllMales(person) {
-        if (person.sex === 'male') {
-            malesList += `${person.name} ${person.surname}, `;
-        }
-    }
-
-    people.forEach(printAllMales);
-
-    malesList = malesList.slice(0, -2);
-
-    console.log(malesList);
-
+    console.log(people.filter(function({sex}) {
+        return sex === 'male';
+    }));
 }
 console.groupEnd();
 
 console.groupCollapsed('7. Atspausdinkite visas moteris');
 {
-    let femalesList = '';
-
-    function printAllFemales(person) {
-        if (person.sex === 'female') {
-            femalesList += `${person.name} ${person.surname}, `;
-        }
-    }
-
-    people.forEach(printAllFemales);
-
-    femalesList = femalesList.slice(0, -2);
-
-    console.log(femalesList);
+    console.log(people.filter(function({sex}) {
+        return sex === 'female';
+    }));
 }
 console.groupEnd();
 
@@ -165,13 +124,11 @@ console.groupCollapsed('8. Atspausdinkite žmonių vardus ir pavardes, kurie tur
 {
     let carOwners = '';
 
-    function printCarOwners(person) {
-        if (person.hasCar) {
-            carOwners += `${person.name} ${person.surname}, `;
+    people.forEach(function({hasCar, name, surname}) {
+        if (hasCar) {
+            carOwners += `${name} ${surname}, `;
         }
-    }
-
-    people.forEach(printCarOwners)
+    })
 
     carOwners = carOwners.slice(0, -2);
 
@@ -183,13 +140,11 @@ console.groupCollapsed('9. Atspausdinkite žmones kurie yra susituokę');
 {
     let marriedPeople = '';
 
-    function printMarriedPeople(person) {
-        if (person.married) {
-            marriedPeople += `${person.name} ${person.surname}, `;
+    people.forEach(function({married, name, surname}) {
+        if(married) {
+            marriedPeople += `${name} ${surname}, `;
         }
-    }
-
-    people.forEach(printMarriedPeople);
+    });
 
     marriedPeople = marriedPeople.slice(0, -2);
 
@@ -199,91 +154,38 @@ console.groupEnd();
 
 console.groupCollapsed('10. Sukurkite objektą, kuriame būtų apskaičiuotas vairuojančių žmonių kiekis pagal lytį');
 {
-    let drivers = {
-        maleDrivers: 0,
-        femaleDrivers: 0
-    };
-
-    function DriversBySexCount (person) {
-        if (person.hasCar) {
-            person.sex === 'male' ? drivers.maleDrivers += 1 : drivers.femaleDrivers += 1;
+    function assignDriverCountReducer(prevDriversBySex, {hasCar, sex}) {
+        if (hasCar) {
+            sex === 'male' ? prevDriversBySex.male += 1 : prevDriversBySex.female += 1;
         }
+
+        return prevDriversBySex;
     }
 
-    people.forEach(DriversBySexCount)
-
-    console.log(drivers);
+    console.log(people.reduce(assignDriverCountReducer, { male: 0, female: 0 }));
 }
 console.groupEnd();
 
 console.groupCollapsed('11. Performuokite žmonių masyvą, jog kiekvieno žmogaus savybė "income", taptų "salary"');
 {
-    let moddedPeople = [];
-
-    function incomeToSalaryChange(person) {
-        let modifiedPerson = {
-            name: person.name,
-            surname: person.surname,
-            sex: person.sex,
-            age: person.age,
-            salary: person.income,
-            married: person.married,
-            hasCar: person.hasCar
-        };
-
-        moddedPeople.push(modifiedPerson);
-
-    }
-
-    people.forEach(incomeToSalaryChange);
-
-    console.log(moddedPeople)
+    console.log(people.map(function({income, ...rest}) {
+        return {salary: income, ...rest};
+    }));
 }
 console.groupEnd();
 
 console.groupCollapsed('12. Suformuokite žmonių masyvą iš objektų, kuriuose nebūtų lyties, vardo ir pavardės');
 {
-    let newPeople = [];
-
-    function replicateArrayWithLessProperties (person) {
-        let obj = {
-            name: person.name,
-            surname: person.surname,
-            sex: person.sex,
-            age: person.age,
-            salary: person.income,
-            married: person.married,
-            hasCar: person.hasCar
-        };
-
-        newPeople.push(obj);
-    }
-
-    people.forEach(replicateArrayWithLessProperties)
-
-    console.log(newPeople);
+    console.log(people.map(function({age, income, married, hasCar}) {
+        return {age, income, married, hasCar}
+    }));
 }
 console.groupEnd();
 
 console.groupCollapsed('13. Suformuokite žmonių masyvą  iš objektų, kuriuose "name" ir "surname" savybės, būtų pakeistos "fullname" savybe');
 {
-    let newArray = [];
-
-    function shortenPersonsNameKeys(person) {
-        let obj = {
-            fullname: `${person.name} ${person.surname}`,
-            sex: person.sex,
-            age: person.age,
-            salary: person.income,
-            married: person.married,
-            hasCar: person.hasCar
-        };
-
-        newArray.push(obj);
-    }
-
-    people.forEach(shortenPersonsNameKeys)
-
-    console.log(newArray)
+    console.log(people.map(function({name, surname, ...rest}) {
+        return {fullname: `${name} ${surname}`, ...rest}
+    }));
 }
 console.groupEnd();
