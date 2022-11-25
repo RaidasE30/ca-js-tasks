@@ -8,7 +8,7 @@ console.log('---');
         const processedArray = [];
 
         for (let i = 0; i < arr.length; i += 1) {
-            processedArray.push(arr[i] * 2);
+            processedArray[i] = arr[i] * 2;
         }
 
         return processedArray;
@@ -30,7 +30,7 @@ console.log('---');
         const processedArray = [];
 
         for (let i = 0; i < arr.length; i += 1) {
-            processedArray.push(arr[i] ** 2);
+            processedArray[i] = arr[i] ** 2;
         }
 
         return processedArray;
@@ -52,7 +52,7 @@ console.log('---');
         const processedArray = [];
 
         for (let i = 0; i < arr.length; i += 1) {
-            processedArray.push(arr[i] * i);
+            processedArray[i] =  arr[i] * i;
         }
 
         return processedArray;
@@ -72,10 +72,12 @@ console.log('---');
 {
     function filterPositives(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 1) {
             if (arr[i] > 0) {
-                processedArray.push(arr[i]);
+                processedArray[index] = arr[i];
+                index += 1;
             }
         }
 
@@ -96,10 +98,12 @@ console.log('---');
 {
     function filterNegatives(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 1) {
             if (arr[i] < 0) {
-                processedArray.push(arr[i]);
+                processedArray[index] = arr[i];
+                index += 1;
             }
         }
 
@@ -120,10 +124,12 @@ console.log('---');
 {
     function filterEquals(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 1) {
             if (arr[i] % 2 === 0) {
-                processedArray.push(arr[i]);
+                processedArray[index] = arr[i];
+                index += 1;
             }
         }
 
@@ -144,10 +150,12 @@ console.log('---');
 {
     function filterOdds(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 1) {
             if (arr[i] % 2 === 1 || arr[i] % 2 === -1) {
-                processedArray.push(arr[i]);
+                processedArray[index] = arr[i];
+                index += 1;
             }
         }
 
@@ -167,10 +175,12 @@ console.group("8. Visas neigiamas vertes masyve padaryti teigiamomis ir išsaugo
 {
     function arrAbsoluteValues(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 1) {
             if (arr[i] < 0) {
-                processedArray.push(arr[i] * -1);
+                processedArray[index] = arr[i] * -1;
+                index += 1;
             }
         }
 
@@ -194,7 +204,7 @@ console.log('---');
         const processedArray = [];
 
         for (let i = 0; i < arr.length; i += 1) {
-            processedArray.push(arr[i] ** i);
+            processedArray[i] = arr[i] ** i;
         }
 
         return processedArray;
@@ -214,10 +224,12 @@ console.log('---');
 {
     function filterNaturals(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 1) {
             if (arr[i] % 1 === 0 && arr[i] > 0) {
-                processedArray.push(arr[i]);
+                processedArray[index] = arr[i];
+                index += 1;
             }
         }
 
@@ -244,11 +256,11 @@ console.log('---');
             let whole = arr[i] - remainder;
 
             if (remainder <= -0.5) {
-                processedArray.push(whole -= 1);
+                processedArray[i] = whole -= 1;
             } else if (remainder >= 0.5) {
-                processedArray.push(whole += 1);
+                processedArray[i] = whole += 1;
             } else {
-                processedArray.push(whole);
+                processedArray[i] = whole;
             }
         }
 
@@ -268,9 +280,11 @@ console.log('---');
 {
     function filterEverySecond(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 2) {
-            processedArray.push(arr[i]);
+            processedArray[index] = arr[i];
+            index += 1;
         }
 
         return processedArray;
@@ -289,9 +303,11 @@ console.log('---');
 {
     function filterEveryFifth(arr) {
         const processedArray = [];
+        let index = 0;
 
         for (let i = 0; i < arr.length; i += 5) {
-            processedArray.push(arr[i]);
+            processedArray[index] = arr[i];
+            index += 1;
         }
 
         return processedArray;
