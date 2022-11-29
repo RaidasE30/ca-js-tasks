@@ -190,7 +190,7 @@ console.log();
 console.group("12. Sukurkite funkciją, kuri grąžina balsių kiekį žodyje");
 {
     function getNumberOfVowels(str) {
-        
+
         return str.match(/[aąeęėiįyouųū]/gi).length;
     }
     console.log('---');
