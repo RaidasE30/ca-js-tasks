@@ -52,21 +52,21 @@ console.groupCollapsed('2. - https://edabit.com/challenge/yxKoCKemzacK6PECM');
     }
 
     const calculator = new Calculator();
-    console.log(calculator.add(5,5), "<-- expected result: 10");
-    console.log(calculator.add(20,5), "<-- expected result: 25");
-    console.log(calculator.subtract(30,5), "<-- expected result: 25");
-    console.log(calculator.subtract(100,5), "<-- expected result: 95");
-    console.log(calculator.multiply(5,5), "<-- expected result: 25");
-    console.log(calculator.multiply(100,5), "<-- expected result: 500");
-    console.log(calculator.divide(10,5), "<-- expected result: 2");
-    console.log(calculator.divide(100,5), "<-- expected result: 20");
+    console.log(calculator.add(5, 5), "<-- expected result: 10");
+    console.log(calculator.add(20, 5), "<-- expected result: 25");
+    console.log(calculator.subtract(30, 5), "<-- expected result: 25");
+    console.log(calculator.subtract(100, 5), "<-- expected result: 95");
+    console.log(calculator.multiply(5, 5), "<-- expected result: 25");
+    console.log(calculator.multiply(100, 5), "<-- expected result: 500");
+    console.log(calculator.divide(10, 5), "<-- expected result: 2");
+    console.log(calculator.divide(100, 5), "<-- expected result: 20");
 }
 console.groupEnd();
 
 console.groupCollapsed('3. - https://edabit.com/challenge/kGLhgwGaLJsCMS7wS');
 {
     class Employee {
-        constructor (firstname, lastname) {
+        constructor(firstname, lastname) {
             this.firstname = firstname;
             this.lastname = lastname;
             this.fullname = `${this.firstname} ${this.lastname}`;
@@ -75,7 +75,7 @@ console.groupCollapsed('3. - https://edabit.com/challenge/kGLhgwGaLJsCMS7wS');
     }
 
     emp1 = new Employee("John", "Smith");
-    emp2 = new Employee("Mary",  "Sue");
+    emp2 = new Employee("Mary", "Sue");
     emp3 = new Employee("Antony", "Walker");
     emp4 = new Employee("Joshua", "Senoron");
 
@@ -135,7 +135,7 @@ console.groupEnd();
 console.groupCollapsed('5. - https://edabit.com/challenge/Hgb38yhWGwJCMHbRQ');
 {
     class Circle {
-        constructor (rad){
+        constructor(rad) {
             this.rad = rad;
         }
 
@@ -164,36 +164,198 @@ console.groupCollapsed('5. - https://edabit.com/challenge/Hgb38yhWGwJCMHbRQ');
 
     let circo2 = new Circle(4.4);
     console.log(round(circo2.getArea()), '<-- Expected result: 60.82123');
-    console.log(round(circo2.getPerimeter()),  '<-- Expected result: 27.64602');
+    console.log(round(circo2.getPerimeter()), '<-- Expected result: 27.64602');
 }
 console.groupEnd();
 
 console.groupCollapsed('6. - https://edabit.com/challenge/qNMtrtizgssAQqP2b');
 {
-    // ... code
+    class Name {
+        #fname;
+        #lname;
+        fullname;
+        initials;
+
+        constructor(fname, lname) {
+            this.lname = lname;
+            this.fname = fname;
+            this.fullname = `${this.#fname} ${this.#lname}`
+            this.initials = `${this.#fname.substr(0, 1)}.${this.#lname.substr(0, 1)}`;
+
+        }
+
+
+        set fname(name) {
+            if (typeof name === 'string') {
+                this.#fname = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+            } else console.error(`${name} must be string`);
+        }
+
+        get fname() {
+            return this.#fname;
+        }
+
+        set lname(name) {
+            if (typeof name === 'string') {
+                this.#lname = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+            } else console.error(`${name} must be string`);
+        }
+
+        get lname() {
+            return this.#lname;
+        }
+
+    }
+
+    a1 = new Name("john", "SMITH")
+    console.log(a1.fname, "<-- expected result: John")
+    console.log(a1.lname, "<-- expected result: Smith")
+    console.log(a1.fullname, "<-- expected result: John Smith")
+    console.log(a1.initials, "<-- expected result: J.S")
+
+    a2 = new Name("sARah", "fRolliE")
+    console.log(a2.fname, "<-- expected result: Sarah")
+    console.log(a2.lname, "<-- expected result: Frollie")
+    console.log(a2.fullname, "<-- expected result: Sarah Frollie")
+    console.log(a2.initials, "<-- expected result: S.F")
 }
 console.groupEnd();
 
 console.groupCollapsed('7. - https://edabit.com/challenge/HKmJFmZZCX53ff4ke');
 {
-    // ... code
+    class IceCream {
+        constructor(flavor, numSprinkles) {
+            this.flavor = flavor;
+            this.numSprinkles = numSprinkles;
+        }
+    }
+
+    function sweetestIceCream(arr) {
+        let sweetSum = 0;
+        for (const iceCream in arr) {
+            let sweetness = 0;
+
+            if (arr[iceCream].flavor === "Plain") {
+                sweetness = 0 + arr[iceCream].numSprinkles;
+            } else if (arr[iceCream].flavor === "Vanilla" || arr[iceCream].flavor === "ChocolateChip") {
+                sweetness = 5 + arr[iceCream].numSprinkles;
+            } else if (arr[iceCream].flavor === "Strawberry" || arr[iceCream].flavor === "Chocolate") {
+                sweetness = 10 + arr[iceCream].numSprinkles;
+            }
+
+            if (sweetSum < sweetness) {
+                sweetSum = sweetness;
+            }
+        }
+
+        return sweetSum;
+    }
+
+    ice1 = new IceCream("Chocolate", 13);
+    ice2 = new IceCream("Vanilla", 0);
+    ice3 = new IceCream("Strawberry", 7);
+    ice4 = new IceCream("Plain", 18);
+    ice5 = new IceCream("ChocolateChip", 3);
+    ice6 = new IceCream("Chocolate", 23);
+    ice7 = new IceCream("Strawberry", 0);
+    ice8 = new IceCream("Plain", 34);
+    ice9 = new IceCream("Plain", 81);
+    ice10 = new IceCream("Vanilla", 12);
+
+    console.log(sweetestIceCream([ice1, ice2, ice3, ice4, ice5]), '<-- Expected result: 23');
+    console.log(sweetestIceCream([ice7, ice10, ice1, ice6, ice8, ice10, ice2, ice2]), '<-- Expected result: 34');
+    console.log(sweetestIceCream([ice10, ice10, ice6, ice8, ice4]), '<-- Expected result: 34');
+    console.log(sweetestIceCream([ice2, ice10, ice6, ice9, ice7]), '<-- Expected result: 81');
+    console.log(sweetestIceCream([ice10, ice6, ice4, ice1, ice7, ice8, ice6]), '<-- Expected result: 34');
+    console.log(sweetestIceCream([ice3, ice1]), '<-- Expected result: 23');
+    console.log(sweetestIceCream([ice6, ice7, ice5, ice4, ice3]), '<-- Expected result: 33');
+    console.log(sweetestIceCream([ice4, ice8, ice9]), '<-- Expected result: 81');
+    console.log(sweetestIceCream([ice5, ice7]), '<-- Expected result: 10');
+
 }
 console.groupEnd();
 
 console.groupCollapsed('8. - https://edabit.com/challenge/9zwdrfW99zmdRhibi');
 {
-    // ... code
+    class OnesThreesNines {
+        constructor(num) {
+            this.ones = Math.floor(num / 1);
+            this.threes = Math.floor(num / 3);
+            this.nines = Math.floor(num / 9);
+        }
+    }
+
+    let testVAr = new OnesThreesNines(25);
+    console.log(testVAr.ones, '<-- Expected result: 25');
+    console.log(testVAr.threes, '<-- Expected result: 8');
+    console.log(testVAr.nines, '<-- Expected result: 2');
 }
 console.groupEnd();
 
 console.groupCollapsed('9. - https://edabit.com/challenge/7PA4jhWqDYJT4ixLp');
 {
-    // ... code
+    class User {
+        static userCount = 0;
+
+        constructor(user) {
+            User.userCount += 1;
+            this.username = user;
+        }
+    }
+
+    console.log(User.userCount, '<-- Expected userCount result: 0');
+
+    const u1 = new User("johnsmith10");
+    console.log(User.userCount, '<-- Expected userCount result: 1');
+    console.log(u1.username, "<-- Expected created username: johnsmith10");
+
+
+    const u2 = new User("marysue1989");
+    console.log(User.userCount, '<-- Expected userCount result: 2');
+    console.log(u2.username, "<-- Expected created username: marysue1989");
+
+    const u3 = new User("milan_rodrick");
+    console.log(User.userCount, '<-- Expected userCount result: 3');
+    console.log(u3.username, "<-- Expected created username: milan_rodrick");
+
 }
 console.groupEnd();
 
 console.groupCollapsed('10. - https://edabit.com/challenge/s5Sz2ovKsvtGxNGgn');
 {
-    // ... code
+    class Book {
+
+        constructor(title, author) {
+            this.title = title;
+            this.author = author;
+        }
+
+        getTitle() {
+            return `Title: ${this.title}`;
+        }
+
+        getAuthor() {
+            return `Author: ${this.author}`;
+        }
+    }
+
+    const PP = new Book('Pride and Prejudice', 'Jane Austen');
+    const H = new Book('Hamlet', 'William Shakespeare');
+    const WP = new Book('War and Peace', 'Leo Tolstoy');
+
+    console.log(PP.title, "<-- Expected result: Pride and Prejudice")
+    console.log(PP.author, "<-- Expected result: Jane Austen")
+    console.log(PP.getTitle(), '<-- Expected result: Title: Pride and Prejudice')
+    console.log(PP.getAuthor(), '<-- Expected result: Author: Jane Austen')
+
+    console.log(H.title, "<-- Expected result: Hamlet")
+    console.log(H.author, "<-- Expected result: William Shakespeare")
+    console.log(H.getTitle(), '<-- Expected result: Title: Hamlet')
+    console.log(H.getAuthor(), '<-- Expected result: Author: William Shakespeare')
+
+    console.log(WP.title, "<-- Expected result: War and Peace")
+    console.log(WP.author, "<-- Expected result: Leo Tolstoy")
+    console.log(WP.getTitle(), '<-- Expected result: Title: War and Peace')
+    console.log(WP.getAuthor(), '<-- Expected result: Author: Leo Tolstoy')
 }
 console.groupEnd();
