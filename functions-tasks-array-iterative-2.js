@@ -203,65 +203,123 @@ console.groupEnd();
 
 console.groupCollapsed('1. Atspausdinti visus Informatikos fakulteto studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({faculty}) => faculty === 'Informatikos fakultetas'));
 }
 console.groupEnd();
 
 console.groupCollapsed('2. Atspausdinti visus Chemijos fakulteto studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({faculty}) => faculty === 'Chemijos fakultetas'));
 }
 console.groupEnd();
 
 console.groupCollapsed('3. Atspausdinti visus Elektros ir elektronikos fakulteto studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({faculty}) => faculty === 'Elektros ir elektronikos fakultetas'));
 }
 console.groupEnd();
 
 console.groupCollapsed('4. Atspausdinti tik pirmo kurso studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({course}) => course === 1));
 }
 console.groupEnd();
 
 console.groupCollapsed('5. Atspausdinti tik antro kurso studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({course}) => course === 2));
 }
 console.groupEnd();
 
 console.groupCollapsed('6. Atspausdinti tik trečio kurso studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({course}) => course === 3));
 }
 console.groupEnd();
 
 console.groupCollapsed('7. Atspausdinti tik ketvirto kurso studentus');
 {
-    // ... sprendimas ir spausdinimas
+    console.log(students.filter(({course}) => course === 4));
 }
 console.groupEnd();
 
 console.groupCollapsed('8. Iš students masyvo atrinkti ir atspausdinti visų studentų vidurkius');
 {
-    // ... sprendimas ir spausdinimas
+    students.forEach((student) => {
+        let totalMarks = 0;
+        let totalCredits = 0;
+
+        student.modules.forEach((module) => {
+            const marks = module.marks;
+            const credits = module.credits;
+            totalMarks += marks.reduce((a, b) => a + b, 0) * credits / marks.length;
+            totalCredits += credits;
+        });
+
+        const averageGrade = (totalMarks / totalCredits).toFixed(2)
+        console.log(`student's ${student.name} ${student.surname} average grade is: ${averageGrade}`)
+    });
 }
 
 console.groupCollapsed('9. Atspausdinti visų Informatikos fakulteto studentų vidurkius');
 {
-    // ... sprendimas ir spausdinimas
+    const itStudents = students.filter(({faculty}) => faculty === 'Informatikos fakultetas');
+
+    itStudents.forEach((student) => {
+        let totalMarks = 0;
+        let totalCredits = 0;
+
+        student.modules.forEach((module) => {
+            const marks = module.marks;
+            const credits = module.credits;
+            totalMarks += marks.reduce((a, b) => a + b, 0) * credits / marks.length;
+            totalCredits += credits;
+        });
+
+        const averageGrade = (totalMarks / totalCredits).toFixed(2)
+        console.log(`student's ${student.name} ${student.surname} average grade is: ${averageGrade}`)
+    });
 }
 console.groupEnd();
 
 console.groupCollapsed('10. Atspausdinti visų Chemijos fakulteto studentų vidurkius');
 {
-    // ... sprendimas ir spausdinimas
+    const chemStudents = students.filter(({faculty}) => faculty === 'Chemijos fakultetas');
+
+    chemStudents.forEach((student) => {
+        let totalMarks = 0;
+        let totalCredits = 0;
+
+        student.modules.forEach((module) => {
+            const marks = module.marks;
+            const credits = module.credits;
+            totalMarks += marks.reduce((a, b) => a + b, 0) * credits / marks.length;
+            totalCredits += credits;
+        });
+
+        const averageGrade = (totalMarks / totalCredits).toFixed(2)
+        console.log(`student's ${student.name} ${student.surname} average grade is: ${averageGrade}`)
+    });
 }
 console.groupEnd();
 
 console.groupCollapsed('11. Atspausdinti visų Elektros ir elektronikos fakulteto studentų vidurkius');
 {
-    // ... sprendimas ir spausdinimas
+    const electroStudents = students.filter(({faculty}) => faculty === 'Elektros ir elektronikos fakultetas');
+
+    electroStudents.forEach((student) => {
+        let totalMarks = 0;
+        let totalCredits = 0;
+
+        student.modules.forEach((module) => {
+            const marks = module.marks;
+            const credits = module.credits;
+            totalMarks += marks.reduce((a, b) => a + b, 0) * credits / marks.length;
+            totalCredits += credits;
+        });
+
+        const averageGrade = (totalMarks / totalCredits).toFixed(2)
+        console.log(`student's ${student.name} ${student.surname} average grade is: ${averageGrade}`)
+    });
 }
 console.groupEnd();
